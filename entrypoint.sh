@@ -23,8 +23,6 @@ if [ "${TERM:0:5}" = "xterm" ]; then
 fi
 #####################################################
 
-chown -R $GOSU_USER /home/openwrt
-
 # If GOSU_USER environment variable set to something other than 0:0 (root:root),
 # become user:group set within and exec command passed in args
 if [ "$GOSU_USER" != "0:0" ]; then
