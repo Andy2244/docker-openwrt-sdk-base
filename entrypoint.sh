@@ -25,7 +25,7 @@ fi
 
 # If GOSU_USER environment variable set to something other than 0:0 (root:root),
 # become user:group set within and exec command passed in args
-if [ "$GOSU_USER" != "0:0" ]; then
+if [ -o -n "$GOSU_USER" ] && [ "$GOSU_USER" != "0:0" ]; then
 	# make sure a valid user exists in /etc/passwd
 	if grep "^builder:" /etc/passwd; then
 		sed -i "/^builder:/d" /etc/passwd
