@@ -7,7 +7,7 @@ ENV LANG=C \
 # install build packages 
 RUN \
 	apk add --update --no-cache \
-	mc nano lzo dos2unix \
+	mc nano lzo dos2unix datamash \
 	intltool perl less bsd-compat-headers curl ca-certificates gnupg \
 	asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils findutils flex g++ gawk gcc gettext git grep \
 	libxslt linux-headers make ncurses-dev patch python2-dev tar xz unzip util-linux wget zlib-dev && \
@@ -15,8 +15,9 @@ RUN \
 	rm -rf /var/cache/apk/*
 
 RUN git config --global user.email '<>' && \
-	git config --global user.name 'Docker Builder'
+	git config --global user.name 'Docker Package Builder'
 
+# "human" useable texteditor
 RUN wget http://www.jbox.dk/downloads/edit.c && \
 	gcc -o /usr/local/bin/edit edit.c -Os && \
 	chmod 777 /usr/local/bin/edit && \
