@@ -27,7 +27,10 @@ RUN wget http://www.jbox.dk/downloads/edit.c && \
 WORKDIR "/workdir"
 
 COPY entrypoint.sh /usr/local/bin/
-RUN chmod 777 /usr/local/bin/entrypoint.sh
+COPY .bashrc /root/
+RUN \
+	chmod 777 /usr/local/bin/entrypoint.sh && \
+	chmod 666 /root/.bashrc
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/bin/bash"]
