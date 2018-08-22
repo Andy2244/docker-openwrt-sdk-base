@@ -18,7 +18,8 @@ RUN git config --global user.email '<>' && \
 	git config --global user.name 'Docker Package Builder'
 
 # "human" useable texteditor
-RUN wget http://www.jbox.dk/downloads/edit.c && \
+RUN \
+	wget http://www.jbox.dk/downloads/edit.c && \
 	gcc -o /usr/local/bin/edit edit.c -Os && \
 	chmod 777 /usr/local/bin/edit && \
 	rm edit.c
@@ -28,7 +29,7 @@ WORKDIR "/workdir"
 COPY entrypoint.sh /usr/local/bin/
 COPY .bashrc /root/
 RUN \
-	sed -e 's~:/bin/ash$~:/bin/bash~' -i /etc/passwd
+	sed -e 's~:/bin/ash$~:/bin/bash~' -i /etc/passwd && \
 	chmod 777 /usr/local/bin/entrypoint.sh && \
 	chmod 644 /root/.bashrc
 
