@@ -7,7 +7,7 @@ ENV LANG=C \
 # install build packages 
 RUN \
 	apk add --update --no-cache \
-	mc nano lzo dos2unix bash-completion htop \
+	mc nano lzo lz4 dos2unix bash-completion htop \
 	intltool perl less bsd-compat-headers curl ca-certificates gnupg \
 	asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils findutils flex g++ gawk gcc gettext git grep \
 	libxslt linux-headers make ncurses-dev patch python2-dev tar xz unzip util-linux wget zlib-dev && \
