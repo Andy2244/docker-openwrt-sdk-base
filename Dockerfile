@@ -12,6 +12,7 @@ RUN \
 	asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils findutils flex g++ gawk gcc gettext git grep \
 	libxslt linux-headers make ncurses-dev patch python2-dev tar xz unzip util-linux wget zlib-dev && \
 	apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing gosu && \
+	apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community portablexdr-dev && \
 	rm -rf /var/cache/apk/*
 
 RUN git config --global user.email '<>' && \
