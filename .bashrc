@@ -122,4 +122,6 @@ fi
 # docker on windows
 if [[ $(uname -r) = *linuxkit* ]]; then
 	alias mc='mc -ds'
-fi 
+fi
+# compile cache
+alias ccmake='CONFIG_CCACHE=y make -j2'
