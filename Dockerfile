@@ -1,13 +1,16 @@
 FROM alpine
 MAINTAINER "Andy Walsh <andy.walsh44+github@gmail.com>"
 
-ENV LANG=C \
-	LC_ALL=C
+#RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8 \
+	LANGUAGE=en_US.UTF-8 \
+	LC_CTYPE=en_US.UTF-8 \
+	LC_ALL=en_US.UTF-8
 
 # install build packages 
 RUN \
 	apk add --update --no-cache \
-	mc nano lzo lz4 dos2unix bash-completion htop \
+	mc nano lzo lz4 dos2unix bash-completion htop socat tzdata \
 	intltool perl less bsd-compat-headers curl ca-certificates gnupg \
 	asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils findutils flex g++ gawk gcc gettext git grep \
 	libxslt linux-headers make ncurses-dev patch python2-dev tar xz unzip util-linux wget zlib-dev && \
@@ -32,7 +35,8 @@ COPY .bashrc /root/
 RUN \
 	sed -e 's~:/bin/ash$~:/bin/bash~' -i /etc/passwd && \
 	chmod 777 /usr/local/bin/entrypoint.sh && \
-	chmod 644 /root/.bashrc
+	chmod 644 /root/.bashrc && \
+	ln -fs /usr/share/zoneinfo/GMT /etc/localtime
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/bin/bash"]
