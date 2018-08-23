@@ -124,4 +124,4 @@ if [[ $(uname -r) = *linuxkit* ]]; then
 	alias mc='mc -ds'
 fi
 # compile cache
-alias ccmake='CONFIG_CCACHE=y make -j2'
+alias makecc='CONFIG_CCACHE=y make'
