@@ -32,9 +32,12 @@ WORKDIR "/workdir"
 COPY entrypoint.sh /usr/local/bin/
 COPY .bashrc /root/
 RUN \
+	mkdir -p -m 776 /home/openwrt && \
+	cp /root/.bashrc /home/openwrt/ && \
 	sed -e 's~:/bin/ash$~:/bin/bash~' -i /etc/passwd && \
 	chmod 777 /usr/local/bin/entrypoint.sh && \
-	chmod 644 /root/.bashrc
+	chmod 644 /root/.bashrc && \
+	chmod 664 /home/openwrt/.bashrc
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/bin/bash"]
