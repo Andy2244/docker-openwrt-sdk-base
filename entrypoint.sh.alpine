@@ -1,0 +1,11 @@
+#!/bin/sh
+
+EXEC=exec
+
+# If GOSU_USER environment variable set to something other than 0:0 (root:root),
+# become user:group
+if [ -n "$GOSU_USER" -a "$GOSU_USER" != "0:0" ]; then
+	EXEC="su-exec $GOSU_USER"
+fi
+
+$EXEC "$@"

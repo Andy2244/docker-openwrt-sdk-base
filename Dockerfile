@@ -1,38 +1,34 @@
-FROM alpine:3.8
+FROM debian:stretch-slim
 MAINTAINER "Andy Walsh <andy.walsh44+github@gmail.com>"
 
-ENV LANG=en_US.UTF-8 \
-	LANGUAGE=en_US.UTF-8 \
-	LC_CTYPE=en_US.UTF-8 \
-	LC_ALL=en_US.UTF-8
+ENV LANG=C.UTF-8
 
 # install build packages 
 RUN \
-	apk add --update --no-cache \
-	su-exec tini mc nano lzo lz4 dos2unix bash-completion htop tzdata \
-	intltool perl less bsd-compat-headers curl ca-certificates gnupg \
-	asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils findutils flex g++ gawk gcc gettext git grep \
-	libxslt linux-headers make ncurses-dev patch python2-dev tar xz unzip util-linux wget zlib-dev && \
-	apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community portablexdr-dev && \
-	rm -rf /var/cache/apk/*
+	apt-get update && apt-get install -y \
+		mc nano dos2unix bash-completion \
+		build-essential libncurses5-dev gawk git subversion libssl-dev gettext zlib1g-dev swig unzip time \
+	&& rm -rf /var/lib/apt/lists/*
 
 RUN \
 	git config --global user.email '<>' && \
 	git config --global user.name 'Docker Package Builder'
 
-# "human" useable texteditor
+# add "human" useable texteditor
 RUN \
 	wget http://www.jbox.dk/downloads/edit.c && \
 	gcc -o /usr/local/bin/edit edit.c -Os && \
-	chmod 777 /usr/local/bin/edit && \
+	chmod +x /usr/local/bin/edit && \
 	rm edit.c
 
-WORKDIR "/workdir"
+# add Tini
+ENV TINI_VERSION=v0.18.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
 
 COPY .bashrc .inputrc /root/
-RUN \
-	sed -e 's~:/bin/ash$~:/bin/bash~' -i /etc/passwd && \
-	chmod 644 /root/.bashrc /root/.inputrc
+RUN chmod 644 /root/.bashrc /root/.inputrc
 
-ENTRYPOINT ["/sbin/tini", "--"]
+WORKDIR "/workdir"
+ENTRYPOINT ["/tini", "--"]
 CMD ["/bin/bash"]
