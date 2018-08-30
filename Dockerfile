@@ -7,6 +7,7 @@ ENV LANG=C.UTF-8
 RUN \
 	apt-get update && apt-get install -y \
 		mc nano dos2unix bash-completion wget procps \
+		bc python2.7 fastjar flex intltool mercurial cmake genisoimage xsltproc \
 		build-essential libncurses5-dev gawk git subversion libssl-dev gettext zlib1g-dev swig unzip time \
 	&& rm -rf /var/lib/apt/lists/*
 
