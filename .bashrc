@@ -120,8 +120,8 @@ fi
 # mc related
 
 # docker on windows
-if [[ $(uname -r) = *linuxkit* ]]; then
-	alias mc='mc -ds'
-fi
+# if [[ $(uname -r) = *linuxkit* ]]; then
+	# alias mc='mc -ds'
+# fi
 # compile cache
 alias makecc='CONFIG_CCACHE=y make'
